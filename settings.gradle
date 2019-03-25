@@ -1,2 +1,5 @@
+include "moar-strava-cli"
+include "moar-strava-sys"
+include "moar-strava-client"
+include "moar-strava-report-app"
 include "moar-sugar"
-include "moar-strava-app-main"

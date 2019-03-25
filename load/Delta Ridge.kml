@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Delta Ridge.kml</name>
+	<Style id="sh_ylw-pushpin">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+		</BalloonStyle>
+		<PolyStyle>
+			<color>995481fd</color>
+			<colorMode>random</colorMode>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="msn_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+		</BalloonStyle>
+		<PolyStyle>
+			<color>995481fd</color>
+			<colorMode>random</colorMode>
+		</PolyStyle>
+	</Style>
+	<Placemark>
+		<name>Delta Ridge</name>
+		<styleUrl>#msn_ylw-pushpin</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						-78.722312211439,35.85595502812481,0 -78.72476611675849,35.85652612400062,0 -78.72425104514588,35.85268079378078,0 -78.72330120045531,35.85048654918013,0 -78.722463645166,35.85160101701494,0 -78.71800489030994,35.85110184089508,0 -78.71741043480446,35.85112935038065,0 -78.71789189546664,35.84895067339603,0 -78.71758435796781,35.8482700484149,0 -78.71786291538133,35.84691329537193,0 -78.71728299111372,35.84689460408234,0 -78.71624447646796,35.84875585005625,0 -78.71491742346092,35.85014021505179,0 -78.71242017742273,35.85167532258718,0 -78.71435651721124,35.85258778123918,0 -78.716204183773,35.85248298693883,0 -78.71701954853725,35.85269709457,0 -78.71786723557688,35.85233636293293,0 -78.72023082885504,35.85249420250565,0 -78.72073074979623,35.85251699791343,0 -78.72131683999031,35.85276514360304,0 -78.72229441488221,35.85362436597789,0 -78.722312211439,35.85595502812481,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

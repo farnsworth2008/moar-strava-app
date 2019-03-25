@@ -1,0 +1,175 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+  blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+  em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup,
+  tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label,
+  legend, table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+body {
+  background-color: white;
+	line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+:focus {
+  outline: 0;
+}
+
+ins {
+  text-decoration: none;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+	font-family: 'Montserrat Extrabold', sans-serif;
+}
+
+#header {
+  background-color: #fc4c02;
+	color: #fff;
+	width: 100%;
+	padding: 20px 0 30px;
+}
+
+#header img {
+	display: block;
+	margin: 0 auto;
+}
+
+#header h1 {
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 28pt;
+	margin-top: 10px;
+	font-weight: normal;
+}
+
+#header h2 {
+	font-size: 16pt;
+	text-align: center;
+	margin-top: 10px;
+}
+
+#main {
+	background-color: #fff;
+	width: 100%;
+}
+
+#main.home {
+	text-align: center;
+	padding: 100px 0 30px;
+}
+
+#main p {
+  font-family: arial, helvetica;
+  font-size: 20pt;
+	text-align: center;
+	font-weight: 400;
+	color: black;
+}
+
+#main p {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 10px;
+}
+
+#gears p {
+  font-style: italic;
+}
+
+#main #primary {
+  background-color: white;
+  width: 100%;
+  display: block;
+  margin: -100px 0 50px;
+  padding-top: 40px;
+  background-size: cover;
+  font-family: arial , helvetica;
+  font-size: 20pt;
+}
+
+#connect_button {
+	background: url('strava_connect.png') no-repeat;
+	background-size: 100%;
+	width: 300px;
+	height: 75px;
+	display: block;
+	margin: 20px auto 80px;
+}
+
+#connect_button:hover {
+	margin-top: 22px;
+	margin-bottom: 78px;
+}
+
+#footer {
+	width: 100%;
+	background-color: #fc4c02;
+	height: 50px;
+	color: #fff;
+	text-align: center;
+	font-size: 10pt;
+	padding: 10px 0;
+}
+
+div.year {
+  padding: 20px 0;
+  text-decoration: bold;
+}
+
+#footer a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#footer a:hover {
+	color: #000;
+	text-decoration: none;
+}
+
+#footer p {
+	float: right;
+	margin-right: 20px;
+	margin-top: 18px;
+}
+
+#footer #powered_by_strava img {
+	float: left;
+	margin-left: 10px;
+	width: 116px;
+	height: 50px;
+}
+
+.google-visualization-table-table * {
+	font-family: arial, helvetica;
+  font-size: 20pt;
+}

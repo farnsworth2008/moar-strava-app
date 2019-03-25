@@ -1,0 +1,46 @@
+buildscript {
+  repositories {
+    jcenter()
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://oss.sonatype.org/content/groups/public/" }
+    maven { url "https://plugins.gradle.org/m2/" }
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE"
+    classpath "io.freefair.gradle:lombok-plugin:3.1.0"
+  }
+}
+
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "java"
+apply plugin: "maven"
+apply plugin: "war"
+apply plugin: "io.freefair.lombok"
+apply plugin: "org.springframework.boot"
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+dependencies {
+  compile "io.springfox:springfox-swagger-ui:2.7.0"
+  compile "io.springfox:springfox-swagger2:2.7.0"
+  compile "org.springframework.boot:spring-boot-starter-web"
+  compile "org.springframework.boot:spring-boot-starter-jdbc"
+  compile project(":moar-sugar")
+  compile project(":moar-strava-sys")
+  compile "mysql:mysql-connector-java:8.0.12"
+}
+
+bootWar {
+  archiveName "ROOT.war"
+  manifest {
+    attributes(
+      "Specification-Title": project.name,
+      "Specification-Version": System.getProperty("build_version", "unknown")
+    )
+  }
+}

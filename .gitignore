@@ -1,10 +1,22 @@
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+!.elasticbeanstalk/*.global.yml
+# Elastic Beanstalk Files
+.DS_Store
 .classpath
+.elasticbeanstalk/*
+.elasticbeanstalk/*
 .project
 .settings
 /.gradle
 /.gradle
+/artifacts
 /gradle
 /gradlew
+/local
 /moar-sugar
 bin
 build
+data
+/stage
