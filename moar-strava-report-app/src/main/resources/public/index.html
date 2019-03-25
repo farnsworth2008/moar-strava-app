@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Do Moar Club</title>
+<meta name="viewport" content="width=640, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link type="text/css" rel="stylesheet" href="style/main.css?v=38">
+<script type="text/javascript" src="script/MoarStravaDomMan.js?v=38"></script>
+<script type="text/javascript"
+  src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+  <div id="header">
+    <h1>Do Moar Club</h1>
+    <img src="style/logo.jpg" alt="" width="80" height="80">
+    <h2>With Strava</h2>
+  </div>
+  <div id="main" class="home">
+    <div id="loading">
+      <p>Loading</p>
+      <img src="style/gears.gif"></img>
+    </div>
+    <div id="connect" style="display: none">
+      <p>This tool extracts Strava data and totals miles by areas.</p>
+      <p>Push the button to import your data from Strava.</p>
+      <a id="connect_button" href="auth" title="Connect with Strava"></a>
+    </div>
+    <div id="primary" style="display: none"></div>
+    <div id="status" style="display: none"></div>
+    <div id="gears" style="display: none">
+      <img src="style/gears.gif"></img>
+      <p>Running in the cloud.</p>
+      <p>You may wish to return later when results are ready.</p>
+      <p>Once your account is processed the server will maintain the
+        data model by tracking your activities going forward.</p>
+      <p>Initial processing can take a few days.</p>
+    </div>
+    <div id="support">
+      <p>
+        If you can help, have a suggestion, or encounter a problem
+        please <a
+          href="https://github.com/farnsworth2008/moar-strava-app/issues">log
+          an issue</a> on my Git Hub account.
+      </p>
+      <p>The site is running on a small AWS cloud with the result
+        that many requests will be queued for processing to keep costs
+        under control.</p>
+      <p>With more power we can do MOAR!</p>
+      <p>Please help cover the costs!</p>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post"
+        target="_top">
+        <input type="hidden" name="cmd" value="_donations" /> <input
+          type="hidden" name="business" value="9B6WMRD69UXXA" /> <input
+          type="hidden" name="currency_code" value="USD" /> <input
+          type="image"
+          src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+          border="0" name="submit"
+          title="PayPal - The safer, easier way to pay online!"
+          alt="Donate with PayPal button" /> <img alt="" border="0"
+          src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1"
+          height="1" />
+      </form>
+    </div>
+  </div>
+  <div id="footer">
+    <a href="http://labs.strava.com/" id="powered_by_strava"
+      rel="nofollow"><img src="style/powered-by-strava.png"></a>
+    <p>
+      <a href="https://github.com/farnsworth2008/moar-strava-app/issues">&#169;
+        2019 Mark Farnsworth</a>, v47
+    </p>
+  </div>
+</body>
+</html>

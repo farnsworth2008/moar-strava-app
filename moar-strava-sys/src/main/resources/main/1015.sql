@@ -1,0 +1,1 @@
+alter table activity_list add column year int;
