@@ -519,8 +519,10 @@ public class MoarStravaSys {
     var createdYear = createdAt.getYear();
     for (int y = currentYear; y >= createdYear; y--) {
       int year = y;
-      statusMsg.set(format("<p>Processing %d</p>", year));
       scoreYear(scanAsync, statusMsg, strava, athlete, year, scoreJobRow, false);
+    }
+    for (int y = currentYear; y >= createdYear; y--) {
+      int year = y;
       scoreYear(scoreAsync, statusMsg, strava, athlete, year, scoreJobRow, true);
     }
   }
