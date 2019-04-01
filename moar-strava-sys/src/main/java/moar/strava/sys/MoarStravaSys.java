@@ -87,6 +87,7 @@ public class MoarStravaSys {
   private final AtomicDouble movRate = new AtomicDouble();
   private final AtomicLong stravaAvailable = new AtomicLong();
   private final AtomicLong stravaAvailableDaily = new AtomicLong();
+  private final AtomicLong retryCount = new AtomicLong();
 
   public MoarStravaSys() {
     this("");
@@ -153,9 +154,9 @@ public class MoarStravaSys {
   }
 
   public void deletePlaceBoundaryRows(Long placeId) {
-    retryable(100, () -> {
+    retryCount.addAndGet(retryable(100, () -> {
       use(ds).executeSql("delete from place_boundary where place_id = ?", placeId);
-    });
+    }));
   }
 
   private void deleteScoreJobRow(Long userId) {
@@ -342,6 +343,7 @@ public class MoarStravaSys {
     appendCounter(msg, "GPS", format("%.1f/sec", gpsRate.get()));
     appendCounter(msg, "JOB", format("%d", scoreJobStatusMap.size()));
     appendCounter(msg, "MOV", format("%.1f/sec", movRate.get()));
+    appendCounter(msg, "RET", format("%d", retryCount.get()));
     appendCounter(msg, "SAD", format("%d", stravaAvailableDaily.get()));
     appendCounter(msg, "SAV", format("%d", stravaAvailable.get()));
     msg.append("</p>");
@@ -534,9 +536,9 @@ public class MoarStravaSys {
     }
     var scoredDistance = new AtomicDouble();
     var p = points.get(0);
-    retryable(100, () -> {
+    retryCount.addAndGet(retryable(100, () -> {
       use(ds).executeSql("delete from move where activity_id=?", activity.getId());
-    });
+    }));
     var moveRepo = use(MoveRow.class).of(ds);
     var loopSize = points.size();
     var geoElap = 0L;
@@ -570,7 +572,7 @@ public class MoarStravaSys {
 
       var pointRow = d5Row;
       var moveStart = nanoTime();
-      retryable(3, () -> {
+      retryCount.addAndGet(retryable(3, () -> {
         moveRepo.upsert(row -> {
           row.setActivityId(activity.getId());
           row.setAthleteId(athleteId);
@@ -583,7 +585,7 @@ public class MoarStravaSys {
           row.setLat(point.getLat());
           row.setLon(point.getLon());
         });
-      });
+      }));
       movElap.addAndGet(nanoTime() - moveStart);
     }
     if (detail && loopSize > 100) {
@@ -819,9 +821,9 @@ public class MoarStravaSys {
     sql.append("where ");
     sql.append("athlete_id=? ");
     sql.append("and year=?");
-    retryable(100, () -> {
+    retryCount.addAndGet(retryable(100, () -> {
       use(ds).executeSql(sql.toString(), athleteId, year);
-    });
+    }));
     var elap = currentTimeMillis() - start;
     repo.insert(row -> {
       row.setAthleteId(athleteId);
