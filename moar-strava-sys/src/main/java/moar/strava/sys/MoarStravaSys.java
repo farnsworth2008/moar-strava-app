@@ -541,7 +541,7 @@ public class MoarStravaSys {
     var loopSize = points.size();
     var geoElap = 0L;
     var gpsElap = 0L;
-    var movElap = 0L;
+    var movElap = new AtomicLong();
     for (int i = 0; i < loopSize; i++) {
       GeoPointD5Row d5Row = null;
       var geoStart = nanoTime();
@@ -570,24 +570,26 @@ public class MoarStravaSys {
 
       var pointRow = d5Row;
       var moveStart = nanoTime();
-      moveRepo.upsert(row -> {
-        row.setActivityId(activity.getId());
-        row.setAthleteId(athleteId);
-        row.setYear(year);
-        row.setSeq(seq);
-        row.setPointId(pointRowId);
-        row.setOffRoad(pointRow.getOffRoad());
-        row.setPlaceId(pointRow.getPlaceId());
-        row.setMeters(movement);
-        row.setLat(point.getLat());
-        row.setLon(point.getLon());
+      retryable(3, () -> {
+        moveRepo.upsert(row -> {
+          row.setActivityId(activity.getId());
+          row.setAthleteId(athleteId);
+          row.setYear(year);
+          row.setSeq(seq);
+          row.setPointId(pointRowId);
+          row.setOffRoad(pointRow.getOffRoad());
+          row.setPlaceId(pointRow.getPlaceId());
+          row.setMeters(movement);
+          row.setLat(point.getLat());
+          row.setLon(point.getLon());
+        });
       });
-      movElap += nanoTime() - moveStart;
+      movElap.addAndGet(nanoTime() - moveStart);
     }
     if (detail && loopSize > 100) {
       var geoSeconds = SECONDS.convert(geoElap, NANOSECONDS);
       var gpsSeconds = SECONDS.convert(gpsElap, NANOSECONDS);
-      var movSeconds = SECONDS.convert(movElap, NANOSECONDS);
+      var movSeconds = SECONDS.convert(movElap.get(), NANOSECONDS);
       if (geoSeconds != 0) {
         geoRate.lazySet((double) loopSize / geoSeconds);
       }
