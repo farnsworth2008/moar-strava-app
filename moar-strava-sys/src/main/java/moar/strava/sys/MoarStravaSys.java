@@ -154,9 +154,11 @@ public class MoarStravaSys {
   }
 
   public void deletePlaceBoundaryRows(Long placeId) {
-    retryCount.addAndGet(retryable(100, () -> {
-      use(ds).executeSql("delete from place_boundary where place_id = ?", placeId);
-    }));
+    synchronized (this) {
+      retryCount.addAndGet(retryable(3, () -> {
+        use(ds).executeSql("delete from place_boundary where place_id = ?", placeId);
+      }));
+    }
   }
 
   private void deleteScoreJobRow(Long userId) {
@@ -536,9 +538,11 @@ public class MoarStravaSys {
     }
     var scoredDistance = new AtomicDouble();
     var p = points.get(0);
-    retryCount.addAndGet(retryable(100, () -> {
-      use(ds).executeSql("delete from move where activity_id=?", activity.getId());
-    }));
+    synchronized (this) {
+      retryCount.addAndGet(retryable(3, () -> {
+        use(ds).executeSql("delete from move where activity_id=?", activity.getId());
+      }));
+    }
     var moveRepo = use(MoveRow.class).of(ds);
     var loopSize = points.size();
     var geoElap = 0L;
@@ -572,20 +576,22 @@ public class MoarStravaSys {
 
       var pointRow = d5Row;
       var moveStart = nanoTime();
-      retryCount.addAndGet(retryable(3, () -> {
-        moveRepo.upsert(row -> {
-          row.setActivityId(activity.getId());
-          row.setAthleteId(athleteId);
-          row.setYear(year);
-          row.setSeq(seq);
-          row.setPointId(pointRowId);
-          row.setOffRoad(pointRow.getOffRoad());
-          row.setPlaceId(pointRow.getPlaceId());
-          row.setMeters(movement);
-          row.setLat(point.getLat());
-          row.setLon(point.getLon());
-        });
-      }));
+      synchronized (this) {
+        retryCount.addAndGet(retryable(3, () -> {
+          moveRepo.upsert(row -> {
+            row.setActivityId(activity.getId());
+            row.setAthleteId(athleteId);
+            row.setYear(year);
+            row.setSeq(seq);
+            row.setPointId(pointRowId);
+            row.setOffRoad(pointRow.getOffRoad());
+            row.setPlaceId(pointRow.getPlaceId());
+            row.setMeters(movement);
+            row.setLat(point.getLat());
+            row.setLon(point.getLon());
+          });
+        }));
+      }
       movElap.addAndGet(nanoTime() - moveStart);
     }
     if (detail && loopSize > 100) {
@@ -821,9 +827,11 @@ public class MoarStravaSys {
     sql.append("where ");
     sql.append("athlete_id=? ");
     sql.append("and year=?");
-    retryCount.addAndGet(retryable(100, () -> {
-      use(ds).executeSql(sql.toString(), athleteId, year);
-    }));
+    synchronized (this) {
+      retryCount.addAndGet(retryable(100, () -> {
+        use(ds).executeSql(sql.toString(), athleteId, year);
+      }));
+    }
     var elap = currentTimeMillis() - start;
     repo.insert(row -> {
       row.setAthleteId(athleteId);
@@ -912,12 +920,14 @@ public class MoarStravaSys {
           return result;
         }
         Long inferred = nonNull(d3PointRow.getInferred(), d3PointRow.getId());
-        d4PointRow = pointRepo.upsert(row -> {
-          row.setId(d4PointId);
-          row.setOffRoad(d3PointRow.getOffRoad());
-          row.setPlaceId(d3PointRow.getPlaceId());
-          row.setInferred(inferred);
-        });
+        synchronized (this) {
+          d4PointRow = pointRepo.upsert(row -> {
+            row.setId(d4PointId);
+            row.setOffRoad(d3PointRow.getOffRoad());
+            row.setPlaceId(d3PointRow.getPlaceId());
+            row.setInferred(inferred);
+          });
+        }
       }
 
       var placeRow = getPlaceRow(d4PointRow.getPlaceId());
